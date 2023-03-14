@@ -5,6 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Covid 19 Data Visualisation & Analytics</title>
+    <link rel="stylesheet" href="./css/main.css" />
   </head>
-  <body></body>
+  <body>
+    <header>
+      <div>
+        <h2>Coursework 1: Data Visualisation & Analytics</h2>
+        <h4>F20/21DV - Data Visualisation and Analytics</h4>
+      </div>
+    </header>
+
+    <div>
+      <!-- grid 4 colums to show more Data -->
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <section>
+      <!-- Chloropleth Map -->
+      <div class="map-container">
+        <svg id="map" width="980" height="620"></svg>
+      </div>
+      <!-- ./ Chloropleth Map -->
+
+      <!-- Line Map -->
+      <div></div>
+      <!-- ./ Line Map -->
+    </section>
+    <section>
+      <!-- Clustter Chart Map -->
+      <div class="clustter-chart"></div>
+      <!-- ./Clustter Chart Map -->
+    </section>
+
+    <!-- script tags -->
+    <script src="https://d3js.org/d3.v7.js"></script>
+    <script type="text/javascript" src="./chloroplethMap.js"></script>
+    <script>
+      const formatNumber = (number) => {
+        return new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 3 }).format(number)
+      }
+      chloroplethMap()
+    </script>
+  </body>
 </html>
