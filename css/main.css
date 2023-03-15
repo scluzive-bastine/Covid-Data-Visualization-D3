@@ -5,8 +5,22 @@
     }
 
 
-    
-    
+
+    .bubble {
+        fill: #4d89ce;
+        fill-opacity: 0.5;
+        stroke: #fff;
+        stroke-width: 0.5px;
+        /* position: absolute; */
+        /* bottom: 0; */
+        position: relative;
+        z-index: 10;
+
+    }
+
+    .bubble :hover {
+        stroke: #000;
+    }
     
     /* Tooltip CSS */
     .d3-tip {
@@ -38,4 +52,34 @@
 
     .fw {
         font-weight: 600;
+    }
+    .background {
+        fill: none;
+        pointer-events: all;
+    }
+
+    .ping {
+        background: #fff;
+        border-radius: 50%;
+        border: 50px solid #222;
+        width: 20px;
+        height: 20px;
+        animation: load 1.5s ease-out infinite;
+    }
+
+    @keyframes load {
+        0% {
+            fill: #4d89ce;
+            border: 0px solid #fff;
+        }
+
+        50% {
+            fill: #4d89ce;
+            border: 100px solid #222;
+        }
+
+        100% {
+            fill: #4d89ce;
+            border: 0px solid #222;
+        }
     }

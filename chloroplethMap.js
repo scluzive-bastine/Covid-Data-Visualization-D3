@@ -7,15 +7,25 @@ const chloroplethMap = () => {
 
   let covidData = [], // setting variable for covid Data
     countriesData, // map data
-    legend,
+    circleData = [], // circle
+    geojson = [],
     g
 
-  // The svg
-  const svg = d3.select('svg'),
-    width = +svg.attr('width'),
-    height = +svg.attr('height')
+  const svgWidth = 600
+  const svgHeight = 600
 
-  g = svg.append('g')
+  let showSpread = false
+
+  const toggleShowSpread = () => {
+    showSpread = !showSpread
+  }
+
+  // The svg
+  let svg = d3.select('svg').attr('width', svgWidth).attr('height', svgHeight)
+
+  // svg.append('rect').attr('width', svgWidth).attr('height', svgHeight)
+  // g = svg.append('g')
+
   // radius for bubbles
   radius = d3.scaleSqrt().domain([0, 1000]).range([0, 8])
 
@@ -25,7 +35,21 @@ const chloroplethMap = () => {
     .geoMercator()
     .scale(70)
     .center([0, 20])
-    .translate([width / 2, height / 2])
+    .translate([svgWidth / 2, svgHeight / 2])
+
+  // zoom
+
+  let zoom = d3.zoom().on('zoom', handleZoom)
+
+  function handleZoom(e) {
+    d3.select('svg g').attr('transform', e.transform)
+  }
+
+  function initZoom() {
+    d3.select('svg').call(zoom)
+  }
+
+  initZoom()
 
   // Data and color scale
   let data = new Map()
@@ -75,9 +99,14 @@ const chloroplethMap = () => {
       data.set(d.iso_code, d)
       covidData.push(d)
     }),
+    d3.csv('gps.csv'),
   ]).then(function (loadData) {
+    geojson.push(loadData[0]) // world json
+
     countriesData = loadData[0]
+    circleData.push(loadData[2])
     drawMap(countriesData)
+    // drawCircles()
   })
 
   const drawMap = (countriesData) => {
@@ -100,5 +129,50 @@ const chloroplethMap = () => {
       .on('mouseover', mouseover)
       .on('mousemove', mousemove)
       .on('mouseleave', mouseleave)
+  }
+
+  const drawCircles = () => {
+    countriesData.features.forEach(function (county) {
+      county.covid_cases = 0
+    })
+
+    countriesData.features.forEach((item) => {
+      covidData.forEach((data) => {
+        if (item.properties.name === data.location) {
+          item.covid_cases = data.total_cases
+        }
+      })
+    })
+
+    const nMinAndMax = d3.extent(countriesData.features, function (a) {
+      return ++a.covid_cases
+    })
+
+    const nToRadius = d3.scaleSqrt().domain(nMinAndMax).range([1, 50])
+
+    svg
+      .select('g')
+      .append('g')
+      .attr('class', 'bubble')
+      .selectAll('circle')
+      .data(
+        countriesData.features.sort(function (a, b) {
+          // console.log(a.covid_cases)
+          return b.covid_cases - a.covid_cases
+        })
+      )
+      .enter()
+      .append('circle')
+      .attr('transform', function (d) {
+        var p = projection(path.centroid(d.geometry))
+        return `translate(${p})`
+        // return 'translate(' + path.centroid(d.geometry) + ')'
+      })
+      .attr('r', function (d) {
+        return nToRadius(d.covid_cases || 0)
+      })
+      .on('mouseover', mouseover)
+      .on('mousemove', mousemove)
+    // .on('mouseleave', mouseleave)
   }
 }
