@@ -9,20 +9,20 @@
   </head>
   <body>
     <header>
-      <div>
+      <div class="container">
         <h2>Coursework 1: Data Visualisation & Analytics</h2>
         <h4>F20/21DV - Data Visualisation and Analytics</h4>
       </div>
     </header>
 
-    <div>
+    <div class="container">
       <!-- grid 4 colums to show more Data -->
       <div></div>
       <div></div>
       <div></div>
       <div></div>
     </div>
-    <section>
+    <section class="main-section">
       <!-- Chloropleth Map -->
       <div class="map-container">
         <svg id="map"></svg>
@@ -30,7 +30,14 @@
       <!-- ./ Chloropleth Map -->
 
       <!-- Line Map -->
-      <div></div>
+      <div class="line-chart--container">
+        <div class="country-container">
+          <div>Country: <span id="country"></span></div>
+          <div id="country-data"></div>
+        </div>
+
+        <div id="my_dataviz"></div>
+      </div>
       <!-- ./ Line Map -->
     </section>
     <section>
@@ -41,12 +48,15 @@
 
     <!-- script tags -->
     <script src="https://d3js.org/d3.v7.js"></script>
-    <script type="text/javascript" src="./chloroplethMap.js"></script>
+    <script type="text/javascript" src="./js/chloroplethMap.js"></script>
+    <script type="text/javascript" src="./js/lineChart.js"></script>
+
     <script>
       const formatNumber = (number) => {
         return new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 3 }).format(number)
       }
       chloroplethMap()
+      lineChart('United Kingdom')
     </script>
   </body>
 </html>

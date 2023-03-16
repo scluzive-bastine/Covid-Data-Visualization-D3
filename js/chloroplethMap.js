@@ -11,7 +11,7 @@ const chloroplethMap = () => {
     geojson = [],
     g
 
-  const svgWidth = 600
+  const svgWidth = 900
   const svgHeight = 600
 
   let showSpread = false
@@ -23,9 +23,6 @@ const chloroplethMap = () => {
   // The svg
   let svg = d3.select('svg').attr('width', svgWidth).attr('height', svgHeight)
 
-  // svg.append('rect').attr('width', svgWidth).attr('height', svgHeight)
-  // g = svg.append('g')
-
   // radius for bubbles
   radius = d3.scaleSqrt().domain([0, 1000]).range([0, 8])
 
@@ -33,8 +30,8 @@ const chloroplethMap = () => {
   const path = d3.geoPath()
   const projection = d3
     .geoMercator()
-    .scale(70)
-    .center([0, 20])
+    .scale(100)
+    .center([0, 50])
     .translate([svgWidth / 2, svgHeight / 2])
 
   // zoom
@@ -58,7 +55,7 @@ const chloroplethMap = () => {
     .domain([
       10000, 100000, 500000, 1000000, 5000000, 10000000, 50000000, 100000000, 500000000, 1500000000,
     ])
-    .range(d3.schemeReds[9])
+    .range(d3.schemeBlues[9])
 
   // Popup to show details about each country
   const tooltip = d3
@@ -79,8 +76,8 @@ const chloroplethMap = () => {
           `<div class="fw">Total Deaths: ${formatNumber(d.total.total_deaths)}</div>` +
           `<div class="fw">GDP per Capita: ${Math.round(d.total.gdp_per_capita)}</div>`
       )
-      .style('left', event.x + 18 + 'px')
-      .style('top', event.y + 18 + 'px')
+      .style('left', event.x + -70 + 'px')
+      .style('top', event.y + -70 + 'px')
     d3.select(this).style('opacity', 0.4).style('stroke', 'white').style('stroke-width', 1)
     d3.select(this).style('cursor', 'pointer')
   }
@@ -129,6 +126,10 @@ const chloroplethMap = () => {
       .on('mouseover', mouseover)
       .on('mousemove', mousemove)
       .on('mouseleave', mouseleave)
+      .on('click', function (d) {
+        // console.log(d.srcElement.__data__.total.location)
+        lineChart(d.srcElement.__data__.total.location)
+      })
   }
 
   const drawCircles = () => {
