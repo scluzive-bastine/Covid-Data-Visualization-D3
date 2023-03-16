@@ -9,9 +9,10 @@ const chloroplethMap = () => {
     countriesData, // map data
     circleData = [], // circle
     geojson = [],
-    g
+    g,
+    showBubbles = false
 
-  const svgWidth = 900
+  const svgWidth = 800
   const svgHeight = 600
 
   let showSpread = false
@@ -22,6 +23,8 @@ const chloroplethMap = () => {
 
   // The svg
   let svg = d3.select('svg').attr('width', svgWidth).attr('height', svgHeight)
+
+  svg.selectAll('*').remove()
 
   // radius for bubbles
   radius = d3.scaleSqrt().domain([0, 1000]).range([0, 8])
@@ -130,9 +133,14 @@ const chloroplethMap = () => {
 
     countriesData = loadData[0]
     circleData.push(loadData[2])
-    drawMap(countriesData)
-    // drawCircles()
+
+    ready(countriesData)
   })
+
+  const ready = (countriesData) => {
+    drawMap(countriesData)
+    drawCircles()
+  }
 
   const drawMap = (countriesData) => {
     // Draw the map
@@ -155,7 +163,6 @@ const chloroplethMap = () => {
       .on('mousemove', mousemove)
       .on('mouseleave', mouseleave)
       .on('click', function (d) {
-        // console.log(d.srcElement.__data__.total.location)
         lineChart(d.srcElement.__data__.total.location)
       })
   }
@@ -204,4 +211,14 @@ const chloroplethMap = () => {
       .on('mousemove', mousemove)
     // .on('mouseleave', mouseleave)
   }
+
+  const toggleBubbles = () => {
+    if (showBubbles === true) {
+      showBubbles = false
+    } else {
+      showBubbles = true
+    }
+  }
+
+  // document.querySelector('#toggleBubbles').addEventListener('click', toggleBubbles) // show bubbles on map
 }

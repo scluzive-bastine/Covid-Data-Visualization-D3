@@ -91,6 +91,33 @@ header .container h4 {
         user-select: none;
     }
 
+    .sc-tip {
+        line-height: 1.5;
+        font-weight: 400;
+        font-size: 12px;
+        font-family: 'avenir next', Arial, sans-serif;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #d5d3d3;
+        background: #fff;
+        color: #222426;
+        pointer-events: none;
+        position: absolute;
+    }
+
+    /* Creates a small triangle extender for the tooltip */
+    .sc-tip:after {
+        box-sizing: border-box;
+        display: inline;
+        font-size: 8px;
+        width: 100%;
+        line-height: 1.5;
+        color: #fff;
+        position: absolute;
+        pointer-events: none;
+        user-select: none;
+    }
+
     .fw {
         font-weight: 500;
     }
@@ -196,4 +223,8 @@ header .container h4 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.stats_cards {
+    height: 100px;
 }

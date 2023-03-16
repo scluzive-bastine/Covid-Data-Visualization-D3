@@ -6,25 +6,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Covid 19 Data Visualisation & Analytics</title>
     <link rel="stylesheet" href="./css/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <header>
-      <div class="container">
-        <h2>Coursework 1: Data Visualisation & Analytics</h2>
-        <h4>F20/21DV - Data Visualisation and Analytics</h4>
+      <div class="py-2 text-center" style="background-color: #f2f6f8">
+        <h2 class="fs-5 fw-bold">Coursework 1: Data Visualisation & Analytics</h2>
+        <h4 class="fs-6">F20/21DV - Data Visualisation and Analytics</h4>
       </div>
     </header>
 
     <div class="container">
       <!-- grid 4 colums to show more Data -->
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div class="row">
+        <div class="col-3">
+          <div
+            class="stats_cards rounded-3 border-1 border-dark py-2 px-4"
+            style="background-color: #a78282"
+          >
+            <span class="text-white text-uppercase fw-normal" style="font-size: 12px">Country</span>
+            <h2 class="text-white fw-bolder mt-1" id="stats-name"></h2>
+          </div>
+        </div>
+        <div class="col-3">
+          <div
+            class="stats_cards rounded-3 border-1 border-dark py-2 px-4"
+            style="background-color: #c7dbdf"
+          >
+            <span class="text-white text-uppercase fw-normal" style="font-size: 12px"
+              >Confirmed Cases</span
+            >
+            <h2 class="text-white fw-bolder mt-1" id="stats-cases"></h2>
+          </div>
+        </div>
+        <div class="col-3">
+          <div
+            class="stats_cards rounded-3 border-1 border-dark py-2 px-4"
+            style="background-color: #ddd0d0"
+          >
+            <span class="text-white text-uppercase fw-normal" style="font-size: 12px"
+              >Confirmed Deaths</span
+            >
+            <h2 class="text-white fw-bolder mt-1" id="stats-deaths"></h2>
+          </div>
+        </div>
+        <div class="col-3">
+          <div
+            class="stats_cards rounded-3 border-1 border-dark py-2 px-4"
+            style="background-color: #f7f7f7"
+          >
+            <span class="text-dark text-uppercase fw-normal" style="font-size: 12px"
+              >Vaccinations</span
+            >
+            <h2 class="text-dark fw-bolder mt-1" id="stats-vaccin"></h2>
+          </div>
+        </div>
+      </div>
     </div>
     <section class="main-section">
       <!-- Chloropleth Map -->
       <div class="map-container">
+        <div class="d-flex justify-content-end me-4 mt-4">
+          <!-- <button class="btn btn-danger" id="toggleBubbles">Show covid spread</button> -->
+        </div>
         <svg id="map"></svg>
         <div class="legend-container">
           <span>Low cases</span>
@@ -52,11 +101,27 @@
     </section>
     <section class="main-section clustter">
       <!-- Clustter Chart Map -->
-      <div class="clustter-chart">
+      <div class="clustter-chart d-flex align-items-end">
         <div id="scatterplot-container"></div>
+        <div
+          class="select-container mb-4 bg-white border-1 rounded-2 p-3 border-secondary w-50 me-3"
+        >
+          <div id="countryListContainer">
+            <label for="">select more countries</label>
+            <select name="" id="countryList" class="form-select"></select>
+          </div>
+          <div class="d-flex">
+            <button class="btn btn-secondary btn-sm mt-2" id="select-btn">Select</button>
+            <!-- <button class="btn btn-danger btn-sm mt-2 ms-2" id="reset-btn">Reset</button> -->
+          </div>
+        </div>
       </div>
       <!-- ./Clustter Chart Map -->
     </section>
+
+    <footer class="bg-dark py-4">
+      <div class="text-center text-white">Nwachukwu Sabastine</div>
+    </footer>
 
     <!-- script tags -->
     <script src="https://d3js.org/d3.v7.js"></script>

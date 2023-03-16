@@ -25,6 +25,9 @@ const lineChart = (country) => {
   //Read the data
 
   Promise.all([
+    d3.csv(
+      'https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/latest/owid-covid-latest.csv'
+    ),
     d3.csv(COVID_URL, function (c) {
       return {
         date: c.date,
@@ -39,9 +42,17 @@ const lineChart = (country) => {
     // Now I can use this dataset
     function (data) {
       document.querySelector('.country-container').style.opacity = 1
-      covidData.push(data[0])
+      covidData.push(data[1])
+
+      let stat = data[0].filter((c) => c.location === country)
+      console.log(stat)
 
       document.querySelector('#country').innerHTML = country // show name of country on the container
+      document.querySelector('#stats-name').innerHTML = country // show name of country on the container
+      document.querySelector('#stats-cases').innerHTML = formatNumber(stat[0].total_cases) // show name of cases on the container
+      document.querySelector('#stats-deaths').innerHTML = formatNumber(stat[0].total_deaths) // show name of deaths on the container
+      document.querySelector('#stats-vaccin').innerHTML = formatNumber(stat[0].total_vaccinations) // show name of vaccinations on the container
+
       const n = covidData[0].filter((c) => c.location === country)
 
       //   Get first and last Date from the data
@@ -141,7 +152,7 @@ const lineChart = (country) => {
         .attr('d', lineGenerator(n))
         .call(transition)
         .attr('stroke', '#333')
-        .attr('stroke-width', 1)
+        .attr('stroke-width', 2)
         .attr('fill', 'none')
 
       // Draw total deaths line for selected country
@@ -151,7 +162,7 @@ const lineChart = (country) => {
         .attr('d', lineGenerator2(n))
         .call(transition)
         .attr('stroke', '#f00')
-        .attr('stroke-width', 1)
+        .attr('stroke-width', 2)
         .attr('fill', 'none')
 
       //   Draw total vaccination for selected country
@@ -161,7 +172,7 @@ const lineChart = (country) => {
         .attr('d', lineGenerator3(n))
         .call(transition)
         .attr('stroke', '#A78282')
-        .attr('stroke-width', 1)
+        .attr('stroke-width', 2)
         .attr('fill', 'none')
 
       // Tool tip text box for dashed line tool tip
