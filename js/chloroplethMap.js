@@ -57,6 +57,34 @@ const chloroplethMap = () => {
     ])
     .range(d3.schemeBlues[9])
 
+  // Create Legend
+
+  const legend = d3.select('#legend').append('svg').attr('width', 200).attr('height', 50)
+
+  const legendScale = d3.scaleLinear().domain([0, 9]).rangeRound([20, 180])
+
+  // const legendAxis = d3
+  //   .axisBottom(legendScale)
+  //   .tickSize(13)
+  //   .tickValues(d3.range(10))
+  //   .tickFormat(function (d) {
+  //     return d3.format('.2s')(colorScale.domain()[d])
+  //   })
+
+  const legendGroup = legend.append('g').attr('transform', 'translate(0, 20)')
+
+  legendGroup
+    .selectAll('rect')
+    .data(colorScale.range())
+    .join('rect')
+    .attr('x', (d, i) => legendScale(i))
+    .attr('y', 0)
+    .attr('width', 200 / 9 - 2)
+    .attr('height', 13)
+    .attr('fill', (d) => d)
+
+  // legendGroup.call(legendAxis).select('.domain').remove()
+
   // Popup to show details about each country
   const tooltip = d3
     .select('.map-container')

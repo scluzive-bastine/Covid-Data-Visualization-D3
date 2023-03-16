@@ -26,23 +26,35 @@
       <!-- Chloropleth Map -->
       <div class="map-container">
         <svg id="map"></svg>
+        <div class="legend-container">
+          <span>Low cases</span>
+          <div id="legend"></div>
+          <span>High cases</span>
+        </div>
       </div>
       <!-- ./ Chloropleth Map -->
 
       <!-- Line Map -->
       <div class="line-chart--container">
-        <div class="country-container">
-          <div>Country: <span id="country"></span></div>
-          <div id="country-data"></div>
-        </div>
-
+        <div class="title">Total Number of Cases, Vaccinations, and Deaths</div>
         <div id="my_dataviz"></div>
+        <div class="country-container">
+          <div><span id="country"></span></div>
+          <div id="country-data"></div>
+          <div class="keys">
+            <div class="vaccination">Vaccinations</div>
+            <div class="deaths">Deaths</div>
+            <div class="cases">Covid Cases</div>
+          </div>
+        </div>
       </div>
       <!-- ./ Line Map -->
     </section>
-    <section>
+    <section class="main-section clustter">
       <!-- Clustter Chart Map -->
-      <div class="clustter-chart"></div>
+      <div class="clustter-chart">
+        <div id="scatterplot-container"></div>
+      </div>
       <!-- ./Clustter Chart Map -->
     </section>
 
@@ -50,6 +62,7 @@
     <script src="https://d3js.org/d3.v7.js"></script>
     <script type="text/javascript" src="./js/chloroplethMap.js"></script>
     <script type="text/javascript" src="./js/lineChart.js"></script>
+    <script type="text/javascript" src="./js/scatterplot.js"></script>
 
     <script>
       const formatNumber = (number) => {
@@ -57,6 +70,7 @@
       }
       chloroplethMap()
       lineChart('United Kingdom')
+      scatterPlot()
     </script>
   </body>
 </html>

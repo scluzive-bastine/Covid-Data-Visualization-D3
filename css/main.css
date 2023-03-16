@@ -133,7 +133,67 @@ header .container h4 {
     font-size: 18px;
     margin-top: 5px;
     width: fit-content;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     margin-left: auto;
     margin-right: auto;
+    opacity: 0;
+}
+
+
+.clustter-chart {
+    position: relative;
+    overflow: hidden;
+    grid-column-end: span 6;
+    background: #F6F6F6;
+    border: 1px solid #CECECE;
+    border-radius: 10px;
+}
+
+
+.keys {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.keys div {
+    width: 10px;
+    height: 10px;
+    color: #fff;
+    padding: 2px;
+    font-size: 12px;
+}
+.keys .vaccination {
+    color: #fff;
+    font-size: 15px;
+    padding: 4px 8px;
+    background-color: #A78282;
+    width: fit-content;
+    height: fit-content;
+}
+.keys .cases {
+    color: #fff;
+    font-size: 15px;
+    padding: 4px 8px;
+    background-color: #333;
+    width: fit-content;
+    height: fit-content;
+}
+.keys .deaths {
+    color: #fff;
+    font-size: 15px;
+    padding: 4px 8px;
+    background-color: #f00;
+    width: fit-content;
+    height: fit-content;
+}
+
+.title {
+    text-align: center;
+    margin-top: .5rem;
+}
+
+.legend-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
